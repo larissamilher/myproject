@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>💖</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body{
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      overflow:hidden;
+      background: linear-gradient(135deg, #1e1e2f, #2b1055);
+      color:white;
+      padding:20px;
+    }
+
+    .container{
+      width:380px;
+      padding:30px;
+      border-radius:28px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+      text-align:center;
+      position:relative;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float{
+      0%,100%{ transform: translateY(0px);}
+      50%{ transform: translateY(-10px);}
+    }
+
+    h1{
+      font-size:2rem;
+      margin-bottom:12px;
+      color:#ffb3ec;
+    }
+
+    p{
+      color:#ddd;
+      margin-bottom:20px;
+      line-height:1.5;
+    }
+
+    .contador{
+      background: rgba(255,255,255,0.07);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:18px;
+      padding:14px;
+      margin-bottom:20px;
+    }
+
+    .contador-title{
+      font-size:0.85rem;
+      color:#ffb3ec;
+      margin-bottom:6px;
+    }
+
+    #tempo{
+      font-size:1rem;
+      color:#fff;
+      font-weight:bold;
+      line-height:1.6;
+    }
+
+    .terminal{
+      background:#111827;
+      border-radius:18px;
+      padding:16px;
+      text-align:left;
+      margin-bottom:20px;
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    .line{
+      margin:8px 0;
+      color:#8be9fd;
+      font-size:0.9rem;
+    }
+
+    .pink{
+      color:#ff79c6;
+    }
+
+    .green{
+      color:#50fa7b;
+    }
+
+    button{
+      border:none;
+      background:#ff4da6;
+      color:white;
+      padding:12px 24px;
+      border-radius:999px;
+      cursor:pointer;
+      font-size:1rem;
+      font-weight:bold;
+      transition:0.3s;
+    }
+
+    button:hover{
+      transform:scale(1.08);
+      background:#ff66b3;
+      box-shadow:0 0 20px rgba(255,77,166,0.5);
+    }
+
+    .msg{
+      margin-top:20px;
+      padding:14px;
+      border-radius:16px;
+      background: rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.1);
+      color:#ffe6f5;
+      font-size:0.95rem;
+      opacity:0;
+      transform:translateY(10px);
+      transition:0.4s ease;
+      min-height:50px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .msg.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    .album{
+      margin-top:22px;
+    }
+
+    .album a{
+      text-decoration:none;
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.12);
+      padding:12px 18px;
+      border-radius:16px;
+      color:#ffe6f5;
+      display:inline-block;
+      transition:0.3s;
+      font-size:0.95rem;
+    }
+
+    .album a:hover{
+      transform:scale(1.05);
+      background:rgba(255,255,255,0.14);
+    }
+
+    .heart{
+      position:absolute;
+      animation: subir 5s linear forwards;
+      font-size:20px;
+      pointer-events:none;
+    }
+
+    @keyframes subir{
+      0%{
+        transform:translateY(0) scale(0.5);
+        opacity:0;
+      }
+      20%{
+        opacity:1;
+      }
+      100%{
+        transform:translateY(-100vh) scale(1.5);
+        opacity:0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>Oi amor 💖</h1>
+
+    <p>
+      Talvez você não trabalhe com código hoje...<br>
+      mas já entende o suficiente pra saber<br>
+      que foi você quem hackeou meu coração 💖
+    </p>
+
+    <div class="contador">
+      <div class="contador-title">
+        💞 Desde nosso primeiro beijo:
+      </div>
+
+      <div id="tempo"></div>
+    </div>
+
+    <div class="terminal">
+      <div class="line">
+        <span class="pink">if</span> (você == perfeito) {
+      </div>
+
+      <div class="line" style="padding-left:20px;">
+        coração = <span class="green">"completamente seu 💕"</span>;
+      </div>
+
+      <div class="line">}</div>
+    </div>
+
+    <button onclick="fofura()">
+      💖 Clique para amor
+    </button>
+
+    <div class="msg" id="mensagem"></div>
+
+    <div class="album">
+      <a 
+        href="https://photos.app.goo.gl/aBaJgvzD9XXi1GR17"
+        target="_blank"
+      >
+        📸 Ver nosso álbumzinho
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+
+    // CONTADOR
+
+    const dataInicio = new Date("2026-04-08T00:00:00");
+
+    function atualizarTempo(){
+
+      const agora = new Date();
+
+      const diferenca = agora - dataInicio;
+
+      const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+
+      const horas = Math.floor(
+        (diferenca / (1000 * 60 * 60)) % 24
+      );
+
+      const minutos = Math.floor(
+        (diferenca / (1000 * 60)) % 60
+      );
+
+      const segundos = Math.floor(
+        (diferenca / 1000) % 60
+      );
+
+      document.getElementById("tempo").innerHTML =
+        `${dias} dias, ${horas} horas<br>
+         ${minutos} minutos e ${segundos} segundos`;
+    }
+
+    setInterval(atualizarTempo, 1000);
+
+    atualizarTempo();
+
+
+    // MENSAGENS
+
+    const frases = [
+      "Seu abraço virou meu lugar seguro 💞",
+      "Você deixa qualquer dia mais bonito ✨",
+      "Meu coração fica calminho perto de você 🫶",
+      "Ainda bem que o universo cruzou nossos caminhos 💖",
+      "Você é uma das minhas partes favoritas da vida 🌸",
+      "Seu sorriso consegue melhorar tudo ☀️",
+      "Cada momento com você vira memória favorita 💕",
+      "Te conhecer foi uma coincidência muito linda 💘",
+      "Com você até o silêncio é confortável 🥺",
+      "Você transforma momentos simples em especiais ✨",
+      "Eu gosto de existir no mesmo mundo que você 💗",
+      "Seu carinho faz meu coração sorrir 🌷",
+      "Tem algo em você que faz tudo parecer mais leve 💞",
+      "Você é meu pensamento favorito do dia 💭",
+      "Do seu lado tudo parece mais tranquilo 🌙",
+      "Eu escolheria você em qualquer versão da vida 💖",
+      "Seu jeitinho me ganha todos os dias 🫶",
+      "Você tem o abraço que eu quero morar 💕",
+      "Ficar com você nunca é tempo perdido ✨",
+      "Você faz meu mundo ficar mais bonito 🌸",
+      "A melhor parte dos meus dias geralmente envolve você 💘",
+      "Seu olhar consegue me desmontar todinha 🥺",
+      "Você virou minha felicidade favorita 💞",
+      "A vida ficou mais colorida depois de você 🎨💖",
+      "Te amar é a coisa mais natural do mundo 🌷"
+    ];
+    function fofura(){
+
+      const msg = document.getElementById("mensagem");
+
+      const frase = frases[Math.floor(Math.random() * frases.length)];
+
+      msg.classList.remove("show");
+
+      setTimeout(() => {
+        msg.innerText = frase;
+        msg.classList.add("show");
+      }, 150);
+
+      for(let i = 0; i < 18; i++){
+        coracoes();
+      }
+    }
+
+    function coracoes(){
+
+      const heart = document.createElement("div");
+
+      heart.classList.add("heart");
+
+      heart.innerHTML = "💖";
+
+      heart.style.left = Math.random() * window.innerWidth + "px";
+
+      heart.style.top = "90%";
+
+      heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+  </script>
+
+</body>
+</html>
